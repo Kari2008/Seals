@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foczy Świat 🦭</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef8fb;
+            color: #183642;
+            line-height: 1.6;
+        }
+
+        header {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(8, 47, 62, 0.55), rgba(8, 47, 62, 0.65)),
+                url("https://images.unsplash.com/photo-1551244072-5d12893278ab?auto=format&fit=crop&w=2000&q=80")
+                center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #46c2e8;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #229ac0;
+            transform: translateY(-3px);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #073b4c;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #68d5f3;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.7rem;
+            color: #07516a;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 45px;
+            color: #52727d;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .about-text h3 {
+            color: #087f9e;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .facts-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .facts-list li {
+            background: white;
+            margin: 10px 0;
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+
+        .species-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .species-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .species-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .species-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .species-content {
+            padding: 25px;
+        }
+
+        .species-content h3 {
+            color: #07516a;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #d7f4fb;
+            color: #08708d;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .funfacts {
+            background: #073b4c;
+            color: white;
+            max-width: none;
+        }
+
+        .funfacts-inner {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .funfacts .section-title {
+            color: white;
+        }
+
+        .funfact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .funfact {
+            background: rgba(255,255,255,0.1);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .funfact .emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .funfact h3 {
+            margin-bottom: 10px;
+            color: #68d5f3;
+        }
+
+        .quiz {
+            text-align: center;
+        }
+
+        .quiz-box {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .answers {
+            display: grid;
+            gap: 12px;
+        }
+
+        .answer {
+            border: 2px solid #c7e9f1;
+            background: #f7fdff;
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .answer:hover {
+            background: #dff7fc;
+        }
+
+        .answer.correct {
+            background: #b9f2cb;
+            border-color: #39a95c;
+        }
+
+        .answer.wrong {
+            background: #ffc4c4;
+            border-color: #d94c4c;
+        }
+
+        #quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #052d3a;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer span {
+            color: #68d5f3;
+        }
+
+        @media (max-width: 900px) {
+            .species-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .funfact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+                font-size: 0.9rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .species-grid,
+            .funfact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .quiz-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="home">
+        <div class="hero">
+            <h1>🦭 Foczy Świat</h1>
+            <p>
+                Poznaj niezwykłe zwierzęta mórz i oceanów,
+                ich gatunki, zwyczaje oraz najbardziej zaskakujące ciekawostki!
+            </p>
+            <a href="#o-fokach" class="button">Poznaj foki ↓</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#home">Start</a>
+        <a href="#o-fokach">O fokach</a>
+        <a href="#gatunki">Gatunki</a>
+        <a href="#ciekawostki">Ciekawostki</a>
+        <a href="#quiz">Quiz</a>
+    </nav>
+
+    <section id="o-fokach">
+        <h2 class="section-title">Kim są foki?</h2>
+        <p class="section-subtitle">
+            Foki to ssaki morskie należące do grupy płetwonogich.
+            Są świetnie przystosowane do życia zarówno w wodzie, jak i na lądzie.
+        </p>
+
+        <div class="about">
+            <img
+                src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=1000&q=80"
+                alt="Foka odpoczywająca na brzegu"
+            >
+
+            <div class="about-text">
+                <h3>Mistrzowie podwodnego świata 🌊</h3>
+
+                <p>
+                    Foki mają opływowe ciało, warstwę tłuszczu chroniącą je
+                    przed zimnem oraz kończyny przekształcone w płetwy.
+                </p>
+
+                <p>
+                    Większość życia spędzają w wodzie, gdzie polują na ryby,
+                    kałamarnice i inne organizmy morskie.
+                </p>
+
+                <ul class="facts-list">
+                    <li>🌊 Świetnie pływają i nurkują.</li>
+                    <li>❄️ Tłuszcz pomaga im utrzymywać ciepło.</li>
+                    <li>🐟 Żywią się głównie organizmami morskimi.</li>
+                    <li>👂 Niektóre gatunki potrafią nurkować bardzo głęboko.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="gatunki">
+        <h2 class="section-title">Wybrane gatunki fok</h2>
+        <p class="section-subtitle">
+            Na świecie żyje wiele gatunków płetwonogich. Oto kilka interesujących przykładów.
+        </p>
+
+        <div class="species-grid">
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1551244072-5d12893278ab?auto=format&fit=crop&w=800&q=80"
+                    alt="Foka"
+                >
+                <div class="species-content">
+                    <span class="tag">Bałtyk</span>
+                    <h3>Foka szara</h3>
+                    <p>
+                        Jeden z największych gatunków fok występujących
+                        w rejonie Morza Bałtyckiego. Samce są większe
+                        od samic i mogą mieć charakterystyczne blizny.
+                    </p>
+                </div>
+            </article>
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=800&q=80"
+                    alt="Foka na brzegu"
+                >
+                <div class="species-content">
+                    <span class="tag">Bałtyk</span>
+                    <h3>Foka pospolita</h3>
+                    <p>
+                        Stosunkowo niewielka foka o charakterystycznym,
+                        zaokrąglonym pysku. Zamieszkuje wybrzeża północnej
+                        części Atlantyku i Pacyfiku.
+                    </p>
+                </div>
+            </article>
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1607153333879-c174d265f1d2?auto=format&fit=crop&w=800&q=80"
+                    alt="Foka"
+                >
+                <div class="species-content">
+                    <span class="tag">Arktyka</span>
+                    <h3>Foka obrączkowana</h3>
+                    <p>
+                        Ma charakterystyczny wzór przypominający pierścienie.
+                        Jest silnie związana z zimnymi wodami Arktyki
+                        i obszarami pokrytymi lodem.
+                    </p>
+                </div>
+            </article>
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1534237710431-e2fc698436d0?auto=format&fit=crop&w=800&q=80"
+                    alt="Duża foka"
+                >
+                <div class="species-content">
+                    <span class="tag">Antarktyda</span>
+                    <h3>Słoń morski</h3>
+                    <p>
+                        To ogromny przedstawiciel płetwonogich.
+                        Samce słoni morskich mogą osiągać imponujące rozmiary
+                        i posiadają charakterystyczny nos przypominający trąbę.
+                    </p>
+                </div>
+            </article>
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1607153333879-c174d265f1d2?auto=format&fit=crop&w=800&q=80"
+                    alt="Foka w wodzie"
+                >
+                <div class="species-content">
+                    <span class="tag">Arktyka</span>
+                    <h3>Foka grenlandzka</h3>
+                    <p>
+                        Znana z jasnego umaszczenia i charakterystycznych
+                        czarnych wzorów. Występuje przede wszystkim
+                        w północnych rejonach Atlantyku.
+                    </p>
+                </div>
+            </article>
+
+            <article class="species-card">
+                <img
+                    src="https://images.unsplash.com/photo-1551244072-5d12893278ab?auto=format&fit=crop&w=800&q=80"
+                    alt="Foka na lodzie"
+                >
+                <div class="species-content">
+                    <span class="tag">Oceany</span>
+                    <h3>Foka Weddella</h3>
+                    <p>
+                        Żyje w pobliżu Antarktydy i jest doskonale przystosowana
+                        do bardzo zimnego środowiska. Potrafi długo przebywać
+                        pod wodą podczas polowania.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="ciekawostki" class="funfacts">
+        <div class="funfacts-inner">
+
+            <h2 class="section-title">Focze ciekawostki 🧠</h2>
+
+            <p class="section-subtitle" style="color:#c9eaf2;">
+                Kilka rzeczy, które mogą Cię zaskoczyć!
+            </p>
+
+            <div class="funfact-grid">
+
+                <div class="funfact">
+                    <div class="emoji">🫁</div>
+                    <h3>Wstrzymują oddech</h3>
+                    <p>
+                        Foki potrafią pozostawać pod wodą przez długi czas,
+                        wykorzystując zapasy tlenu zgromadzone w organizmie.
+                    </p>
+                </div>
+
+                <div class="funfact">
+                    <div class="emoji">👀</div>
+                    <h3>Widzą pod wodą</h3>
+                    <p>
+                        Ich oczy są przystosowane do widzenia w środowisku
+                        wodnym, nawet przy niewielkiej ilości światła.
+                    </p>
+                </div>
+
+                <div class="funfact">
+                    <div class="emoji">🎵</div>
+                    <h3>Mają różne głosy</h3>
+                    <p>
+                        Foki komunikują się za pomocą różnego rodzaju
+                        dźwięków — od pomruków po głośne nawoływania.
+                    </p>
+                </div>
+
+                <div class="funfact">
+                    <div class="emoji">🧭</div>
+                    <h3>Świetni pływacy</h3>
+                    <p>
+                        Ich opływowe ciało i płetwy pozwalają im bardzo
+                        sprawnie poruszać się pod wodą.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="quiz">
+        <h2 class="section-title">🧠 Foczy quiz</h2>
+
+        <p class="section-subtitle">
+            Sprawdź, ile zapamiętałeś!
+        </p>
+
+        <div class="quiz-box">
+
+            <div class="quiz-question">
+                Która z tych rzeczy pomaga fokom przetrwać w zimnej wodzie?
+            </div>
+
+            <div class="answers">
+                <button class="answer" onclick="checkAnswer(this, false)">
+                    🪶 Pióra
+                </button>
+
+                <button class="answer" onclick="checkAnswer(this, true)">
+                    🧈 Gruba warstwa tłuszczu
+                </button>
+
+                <button class="answer" onclick="checkAnswer(this, false)">
+                    🧥 Futro wykonane z bawełny
+                </button>
+
+                <button class="answer" onclick="checkAnswer(this, false)">
+                    🔥 Ogrzewanie ciała ogniem
+                </button>
+            </div>
+
+            <div id="quiz-result"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            🦭 <span>Foczy Świat</span> — strona poświęcona fascynującym ssakom morskim.
+        </p>
+        <p>© 2026 | Zrobione z miłości do fok 🌊</p>
+    </footer>
+
+    <script>
+        function checkAnswer(button, correct) {
+            const buttons = document.querySelectorAll(".answer");
+            const result = document.getElementById("quiz-result");
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+
+            if (correct) {
+                button.classList.add("correct");
+                result.textContent = "🎉 Brawo! To prawidłowa odpowiedź!";
+                result.style.color = "#23964a";
+            } else {
+                button.classList.add("wrong");
+                result.textContent = "❌ Niestety! Prawidłowa odpowiedź to gruba warstwa tłuszczu.";
+                result.style.color = "#c43d3d";
+
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes("Gruba warstwa")) {
+                        btn.classList.add("correct");
+                    }
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
